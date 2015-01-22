@@ -115,6 +115,12 @@ module.exports = function(grunt) {
 			}
 		},
 		copy: {
+			css: {
+				files: {
+					'<%= config.distFolder %>/fonts/lato-woff.css': ['<%= config.cssSrc %>/fonts/lato-woff.css'],
+					'<%= config.distFolder %>/fonts/lato-woff2.css': ['<%= config.cssSrc %>/fonts/lato-woff2.css']
+				}
+			},
 			// Because sass won’t import css files
 			'css-to-sass': {
 				files: {
@@ -284,10 +290,10 @@ module.exports = function(grunt) {
 	});
 
 	// Default task.
-	grunt.registerTask('assets', ['copy:css-to-sass', 'sass', 'jshint', 'concat', 'uglify', 'cssmin']);
+	grunt.registerTask('assets', ['copy:css', 'copy:css-to-sass', 'sass', 'jshint', 'concat', 'uglify', 'cssmin']);
 	grunt.registerTask('images', ['grunticon']);
 	grunt.registerTask('config', ['yaml']);
-	grunt.registerTask('content', [ 'copy:includes', 'shell:jekyll', 'htmlmin', 'compress', 'feedburner-size']);
+	grunt.registerTask('content', ['copy:includes', 'shell:jekyll', 'htmlmin', 'compress', 'feedburner-size']);
 	grunt.registerTask('default', ['config', 'assets', 'images', 'content']);
 
 	// Upload to Production
